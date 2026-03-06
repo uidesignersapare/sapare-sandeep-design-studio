@@ -18,93 +18,116 @@ const HeroSection = () => {
     <section
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center overflow-hidden hero-gradient pt-20"
+      className="relative h-screen flex flex-col overflow-hidden pt-20"
       id="hero"
     >
-      <Particles />
-      <div className="mx-auto max-w-7xl w-full px-6 md:px-12 grid md:grid-cols-2 gap-12 items-center relative z-10">
-        {/* Left */}
-        <motion.div
-          initial={{ opacity: 0, x: -40 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          <span className="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
-            UI / UX Design Studio
-          </span>
-          <h1 className="mt-4 font-display text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground">
-            We craft digital experiences that{" "}
-            <span className="text-gradient">matter</span>
-          </h1>
-          <p className="mt-6 max-w-md text-muted-foreground leading-relaxed">
-            I design intuitive, user-centered digital experiences that solve real problems. My focus is creating clean interfaces, seamless interactions, and meaningful user journeys.
-          </p>
-          <div className="mt-8 flex gap-4">
-            <a
-              href="#work"
-              className="rounded-full bg-primary px-7 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
-            >
-              View Work
-            </a>
-            <a
-              href="#about"
-              className="rounded-full border border-foreground px-7 py-3 text-sm font-semibold text-foreground hover:bg-foreground hover:text-background transition-colors"
-            >
-              About Me
-            </a>
-          </div>
-        </motion.div>
+      {/* Top warm gradient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full bg-[radial-gradient(ellipse_at_center,hsl(24_100%_30%/0.25),hsl(24_100%_20%/0.1)_40%,transparent_70%)] blur-2xl pointer-events-none" />
 
-        {/* Right - parallax name */}
+      <Particles />
+
+      {/* Center name - large typography */}
+      <div className="flex-1 flex items-center justify-center relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="hidden md:flex flex-col items-center justify-center select-none"
+          transition={{ duration: 1, delay: 0.3 }}
+          style={{ x: offset.x, y: offset.y }}
+          className="text-center select-none"
         >
-          <motion.div
-            style={{ x: offset.x, y: offset.y }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="text-center"
-          >
-            <h2 className="font-display text-7xl lg:text-[8rem] xl:text-[9rem] font-bold text-foreground/90 leading-none tracking-tight">
-              SAPARE
-            </h2>
-            <h2 className="font-display text-7xl lg:text-[8rem] xl:text-[9rem] font-bold text-foreground/90 leading-none tracking-tight">
-              SANDEEP
-            </h2>
-          </motion.div>
+          <h2 className="font-display text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-bold text-foreground/[0.12] leading-[0.85] tracking-tight">
+            SAPARE
+          </h2>
+          <h2 className="font-display text-[4rem] sm:text-[6rem] md:text-[8rem] lg:text-[10rem] xl:text-[12rem] font-bold text-foreground/[0.12] leading-[0.85] tracking-tight">
+            SANDEEP
+          </h2>
+          {/* Diamond accent */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <motion.div
+              animate={{ rotate: 45 }}
+              className="w-4 h-4 bg-primary"
+            />
+          </div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-xs tracking-[0.2em] text-muted-foreground uppercase">Scroll to discover</span>
-        <div className="h-10 w-6 rounded-full border-2 border-muted-foreground/40 flex justify-center pt-2">
+      {/* Bottom content area */}
+      <div className="relative z-10 px-6 md:px-12 pb-10">
+        <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-end justify-between gap-8">
+          {/* Left - text content */}
           <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-            className="h-2 w-1 rounded-full bg-primary"
-          />
-        </div>
-      </motion.div>
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="max-w-md"
+          >
+            <span className="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
+              UI / UX Design Studio
+            </span>
+            <h1 className="mt-3 font-display text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-foreground">
+              We craft digital experiences that{" "}
+              <span className="text-gradient">matter</span>
+            </h1>
+            <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              Turning complex problems into elegant, intuitive interfaces that users love.
+            </p>
+            <div className="mt-6 flex gap-3">
+              <a
+                href="#work"
+                className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition-opacity"
+              >
+                View Work
+              </a>
+              <a
+                href="#about"
+                className="rounded-full border border-foreground px-6 py-2.5 text-sm font-semibold text-foreground hover:bg-foreground hover:text-background transition-colors"
+              >
+                About Me
+              </a>
+            </div>
+          </motion.div>
 
-      {/* Stats in corner */}
-      <div className="absolute bottom-10 right-6 md:right-12 hidden md:flex gap-8">
-        {[
-          { num: "12+", label: "PROJECTS" },
-          { num: "2+", label: "YEARS" },
-        ].map((s) => (
-          <div key={s.label} className="text-right">
-            <span className="text-3xl font-display font-bold text-primary">{s.num}</span>
-            <p className="text-xs tracking-wider text-muted-foreground">{s.label}</p>
-          </div>
-        ))}
+          {/* Center - scroll indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="hidden md:flex flex-col items-center gap-2"
+          >
+            <span className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
+              Scroll to discover
+            </span>
+            <div className="h-10 w-5 rounded-full border-2 border-muted-foreground/30 flex justify-center pt-2">
+              <motion.div
+                animate={{ y: [0, 8, 0] }}
+                transition={{ repeat: Infinity, duration: 1.5 }}
+                className="h-1.5 w-1 rounded-full bg-primary"
+              />
+            </div>
+          </motion.div>
+
+          {/* Right - stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="flex gap-8"
+          >
+            {[
+              { num: "12+", label: "PROJECTS" },
+              { num: "2+", label: "YEARS" },
+            ].map((s) => (
+              <div key={s.label} className="text-right">
+                <span className="text-3xl md:text-4xl font-display font-bold text-primary">
+                  {s.num}
+                </span>
+                <p className="text-[10px] tracking-wider text-muted-foreground mt-1">
+                  {s.label}
+                </p>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
