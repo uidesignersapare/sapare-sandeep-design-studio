@@ -2,10 +2,30 @@ import { motion } from "framer-motion";
 import { Mail, Linkedin, Globe, MessageCircle } from "lucide-react";
 
 const links = [
-  { icon: Mail, label: "Email", href: "mailto:hello@saparesandeep.com" },
-  { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com" },
-  { icon: Globe, label: "Behance", href: "https://behance.net" },
-  { icon: MessageCircle, label: "WhatsApp", href: "https://wa.me/919999999999" },
+  {
+    icon: Mail,
+    label: "Email",
+    href: "mailto:saparesandeep07@gmail.com?subject=Portfolio%20Inquiry&body=Hello%20Sapare%20Sandeep%2C%0AI%20saw%20your%20UI%2FUX%20portfolio%20and%20would%20like%20to%20connect%20with%20you%20regarding%20a%20project%20opportunity.",
+    className: "",
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/sapare-sandeep07",
+    className: "",
+  },
+  {
+    icon: Globe,
+    label: "Behance",
+    href: "https://www.behance.net/saparesandeep1",
+    className: "",
+  },
+  {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    href: "https://wa.me/917989061925?text=Hello%20Sapare%20Sandeep%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect%20with%20you",
+    className: "!border-[#25D366]/40 !text-[#25D366] hover:!bg-[#25D366]/10 hover:!border-[#25D366]",
+  },
 ];
 
 const ContactSection = () => (
@@ -29,9 +49,9 @@ const ContactSection = () => (
               href={l.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground hover:border-primary hover:glow-orange transition-all"
+              className={`inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-sm font-medium text-foreground hover:border-primary hover:glow-orange transition-all ${l.className}`}
             >
-              <l.icon size={18} className="text-primary" />
+              <l.icon size={18} className={l.label === "WhatsApp" ? "text-[#25D366]" : "text-primary"} />
               {l.label}
             </a>
           ))}
