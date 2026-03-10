@@ -34,14 +34,18 @@ const AboutSection = () => (
           { num: "02+", label: "Years Design Experience" },
           { num: "100+", label: "UI Screens Designed" },
           { num: "05+", label: "Design Tools Used" },
-        ].map((s) => (
-          <div
+        ].map((s, i) => (
+          <motion.div
             key={s.label}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 + i * 0.1 }}
             className="rounded-2xl border border-border bg-card p-6 text-center hover:border-primary/40 transition-colors"
           >
             <span className="text-4xl font-display font-bold text-primary">{s.num}</span>
             <p className="mt-2 text-xs text-muted-foreground">{s.label}</p>
-          </div>
+          </motion.div>
         ))}
       </motion.div>
     </div>

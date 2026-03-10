@@ -1,40 +1,92 @@
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import projectEthanmax from "@/assets/project-ethanmax.jpg";
-import projectFixsphere from "@/assets/project-fixsphere.jpg";
-import projectCarcare from "@/assets/project-carcare.jpg";
-import projectCleaning from "@/assets/project-cleaning.jpg";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { projects } from "@/data/projects";
 
-const projects = [
-  {
-    title: "Max-Ethan",
-    subtitle: "Luxurious Interior Design",
-    category: "UI/UX DESIGN · 2024",
-    tags: ["Interior", "Luxury", "Mobile App"],
-    image: projectEthanmax,
-  },
-  {
-    title: "Car Care",
-    subtitle: "Automotive Service App",
-    category: "MOBILE DESIGN · 2024",
-    tags: ["Automotive", "Booking", "Dark Mode"],
-    image: projectCarcare,
-  },
-  {
-    title: "Fix Sphere",
-    subtitle: "Home Repair Service Platform",
-    category: "UI/UX DESIGN · 2024",
-    tags: ["Service", "Booking", "Web App"],
-    image: projectFixsphere,
-  },
-  {
-    title: "AM Cleaning",
-    subtitle: "Professional Cleaning Services",
-    category: "WEB DESIGN · 2024",
-    tags: ["Cleaning", "Booking", "Minimal"],
-    image: projectCleaning,
-  },
-];
+const ProjectCard = ({
+  project,
+  index,
+  totalCards,
+}: {
+  project: (typeof projects)[0];
+  index: number;
+  totalCards: number;
+}) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: cardRef,
+    offset: ["start end", "end start"],
+  });
+
+  const scale = useTransform(scrollYProgress, [0.3, 0.8], [1, 0.92]);
+  const imageScale = useTransform(scrollYProgress, [0, 0.5], [1.1, 1]);
+
+  return (
+    <div
+      ref={cardRef}
+      className="sticky"
+      style={{ top: `${80 + index * 20}px`, zIndex: index + 1 }}
+    >
+      <motion.a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ scale }}
+        className="block relative rounded-2xl overflow-hidden border border-border bg-card hover:border-primary/40 transition-colors group cursor-pointer"
+      >
+        {/* Image area */}
+        <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
+          <motion.img
+            src={project.image}
+            alt={project.title}
+            style={{ scale: imageScale }}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+
+          {/* Number badge */}
+          <div className="absolute top-6 right-6 md:top-8 md:right-8">
+            <span className="font-display text-6xl md:text-8xl font-bold text-foreground/10">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* Arrow button */}
+          <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8">
+            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform">
+              <ArrowUpRight size={20} />
+            </div>
+          </div>
+
+          {/* Content overlay */}
+          <div className="absolute bottom-0 left-0 p-6 md:p-8">
+            <span className="text-xs font-medium tracking-widest text-primary uppercase">
+              {project.category}
+            </span>
+            <h3 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-2">
+              {project.title}
+            </h3>
+            <p className="text-sm text-muted-foreground mt-1">
+              {project.subtitle}
+            </p>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.a>
+    </div>
+  );
+};
 
 const WorkSection = () => (
   <section id="work" className="py-24 px-6 md:px-12">
@@ -53,74 +105,29 @@ const WorkSection = () => (
             Recent<br />Projects
           </h2>
         </motion.div>
-        <motion.a
-          href="#work"
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-6 md:mt-0 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-all"
         >
-          View All <ArrowRight size={16} />
-        </motion.a>
+          <Link
+            to="/projects"
+            className="mt-6 md:mt-0 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-all"
+          >
+            View All <ArrowRight size={16} />
+          </Link>
+        </motion.div>
       </div>
 
-      {/* Projects */}
-      <div className="space-y-8">
+      {/* Sticky stacking cards */}
+      <div className="relative space-y-8 pb-[200px]">
         {projects.map((p, i) => (
-          <motion.div
+          <ProjectCard
             key={p.title}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
-            className="group relative rounded-2xl overflow-hidden border border-border bg-card hover:border-primary/40 transition-colors"
-          >
-            {/* Image area */}
-            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
-              <img
-                src={p.image}
-                alt={p.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-
-              {/* Number badge */}
-              <div className="absolute top-6 right-6 md:top-8 md:right-8">
-                <span className="font-display text-6xl md:text-8xl font-bold text-foreground/10">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-
-              {/* Arrow button */}
-              <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8">
-                <button className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform">
-                  <ArrowRight size={20} />
-                </button>
-              </div>
-
-              {/* Content overlay */}
-              <div className="absolute bottom-0 left-0 p-6 md:p-8">
-                <span className="text-xs font-medium tracking-widest text-primary uppercase">
-                  {p.category}
-                </span>
-                <h3 className="font-display text-3xl md:text-5xl font-bold text-foreground mt-2">
-                  {p.title}
-                </h3>
-                <p className="text-sm text-muted-foreground mt-1">{p.subtitle}</p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {p.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border px-4 py-1.5 text-xs text-muted-foreground"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+            project={p}
+            index={i}
+            totalCards={projects.length}
+          />
         ))}
       </div>
     </div>
