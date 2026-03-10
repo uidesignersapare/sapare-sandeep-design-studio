@@ -56,7 +56,7 @@ export const projects: Project[] = [
     subtitle: "Elegant Design Showcase",
     category: "UI/UX DESIGN · 2025",
     tags: ["Branding", "UI/UX", "Web Design"],
-    image: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/placeholder.jpg",
+    image: "https://raw.githubusercontent.com/saparedesign/pics/main/ELAGANT%20%20cover%20page.png",
     link: "https://www.behance.net/gallery/235706577/ELAGANT",
   },
   {
