@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { projects } from "@/data/projects";
@@ -19,6 +20,15 @@ const Projects = () => {
       <Navbar />
       <section className="pt-32 pb-24 px-6 md:px-12">
         <div className="mx-auto max-w-7xl">
+          {/* Back button */}
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+          >
+            <ArrowLeft size={16} />
+            Back to Home
+          </Link>
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,6 +69,7 @@ const Projects = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08 }}
                 className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/40 transition-colors"
+                data-cursor="view"
               >
                 <div className="relative h-56 overflow-hidden">
                   <img
