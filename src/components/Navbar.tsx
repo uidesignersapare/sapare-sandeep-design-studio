@@ -17,9 +17,9 @@ const Navbar = () => {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
-        <a href="#" className="font-display text-xl font-bold text-foreground">
+        <Link to="/" className="font-display text-xl font-bold text-foreground">
           Sapare Designz<span className="text-primary">.</span>
-        </a>
+        </Link>
 
         {/* Center nav - desktop */}
         <div className="hidden md:flex items-center gap-1 rounded-full border border-border bg-secondary/50 backdrop-blur-md px-2 py-1.5">
