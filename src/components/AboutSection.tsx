@@ -30,7 +30,7 @@ const AboutSection = () => (
         className="grid grid-cols-2 gap-6"
       >
         {[
-          { num: "04+", label: "Projects Completed" },
+          { num: "12+", label: "Projects Completed" },
           { num: "02+", label: "Years Design Experience" },
           { num: "100+", label: "UI Screens Designed" },
           { num: "05+", label: "Design Tools Used" },

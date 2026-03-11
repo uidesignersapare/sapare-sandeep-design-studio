@@ -10,8 +10,8 @@ const steps = [
 ];
 
 const ProcessSection = () => (
-  <section id="process" className="py-24 px-6 md:px-12">
-    <div className="mx-auto max-w-7xl">
+  <section id="process" className="py-24 px-6 md:px-12 relative overflow-hidden">
+    <div className="mx-auto max-w-5xl relative z-10">
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -20,21 +20,43 @@ const ProcessSection = () => (
       >
         My Design Process
       </motion.h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {steps.map((s, i) => (
-          <motion.div
-            key={s.num}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08 }}
-            className="rounded-2xl border border-border bg-card p-8 hover:border-primary/40 transition-colors group"
-          >
-            <span className="text-3xl font-display font-bold text-primary/30 group-hover:text-primary transition-colors">{s.num}</span>
-            <h3 className="mt-4 font-display text-lg font-semibold text-foreground">{s.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
-          </motion.div>
-        ))}
+
+      <div className="relative">
+        {/* Timeline line */}
+        <div className="absolute left-4 md:left-6 top-0 bottom-0 w-px bg-gradient-to-b from-primary/60 via-primary/30 to-transparent" />
+
+        <div className="space-y-10">
+          {steps.map((s, i) => {
+            const isLeft = i % 2 === 0;
+            return (
+              <div key={s.num} className="relative pl-14 md:pl-16">
+                {/* Node */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20, delay: i * 0.1 }}
+                  className="absolute left-2 md:left-4 top-6 w-4 h-4 rounded-full bg-primary border-4 border-background z-10 group-hover:shadow-[0_0_12px_hsl(24_100%_50%/0.5)]"
+                />
+
+                {/* Card */}
+                <motion.div
+                  initial={{ opacity: 0, x: isLeft ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-6 md:p-8 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                >
+                  <span className="text-3xl font-display font-bold text-primary/30 group-hover:text-primary transition-colors">
+                    {s.num}
+                  </span>
+                  <h3 className="mt-3 font-display text-lg font-semibold text-foreground">{s.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+                </motion.div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   </section>
