@@ -41,7 +41,7 @@ const Navbar = () => {
             Available for work
           </span>
           <a
-            href="https://drive.google.com/uc?export=download&id=1ZrB8iWqeua0FzUZ5LdPu-dcKhmvPkIIi"
+            href="https://drive.google.com/file/d/1cZJz4PNwnD7zxG5eCHlwx1MNNGBNLm_D/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-full border border-foreground px-5 py-1.5 text-sm font-medium text-foreground hover:bg-foreground hover:text-background transition-colors"
