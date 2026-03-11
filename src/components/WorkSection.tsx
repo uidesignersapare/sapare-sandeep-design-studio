@@ -4,14 +4,14 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { projects } from "@/data/projects";
 
+const displayProjects = projects.slice(0, 5);
+
 const ProjectCard = ({
   project,
   index,
-  totalCards,
 }: {
   project: (typeof projects)[0];
   index: number;
-  totalCards: number;
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -32,10 +32,10 @@ const ProjectCard = ({
         href={project.link}
         target="_blank"
         rel="noopener noreferrer"
+        data-cursor="view"
         style={{ scale }}
         className="block relative rounded-2xl overflow-hidden border border-border bg-card hover:border-primary/40 transition-colors group cursor-pointer"
       >
-        {/* Image area */}
         <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden">
           <motion.img
             src={project.image}
@@ -43,24 +43,17 @@ const ProjectCard = ({
             style={{ scale: imageScale }}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
-          {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
-
-          {/* Number badge */}
           <div className="absolute top-6 right-6 md:top-8 md:right-8">
             <span className="font-display text-6xl md:text-8xl font-bold text-foreground/10">
               {String(index + 1).padStart(2, "0")}
             </span>
           </div>
-
-          {/* Arrow button */}
           <div className="absolute bottom-6 right-6 md:bottom-8 md:right-8">
             <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground group-hover:scale-110 transition-transform">
               <ArrowUpRight size={20} />
             </div>
           </div>
-
-          {/* Content overlay */}
           <div className="absolute bottom-0 left-0 p-6 md:p-8">
             <span className="text-xs font-medium tracking-widest text-primary uppercase">
               {project.category}
@@ -91,7 +84,6 @@ const ProjectCard = ({
 const WorkSection = () => (
   <section id="work" className="py-24 px-6 md:px-12">
     <div className="mx-auto max-w-7xl">
-      {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -112,6 +104,7 @@ const WorkSection = () => (
         >
           <Link
             to="/projects"
+            onClick={() => window.scrollTo(0, 0)}
             className="mt-6 md:mt-0 inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground hover:border-primary hover:text-primary transition-all"
           >
             View All <ArrowRight size={16} />
@@ -119,15 +112,9 @@ const WorkSection = () => (
         </motion.div>
       </div>
 
-      {/* Sticky stacking cards */}
       <div className="relative space-y-8 pb-[200px]">
-        {projects.map((p, i) => (
-          <ProjectCard
-            key={p.title}
-            project={p}
-            index={i}
-            totalCards={projects.length}
-          />
+        {displayProjects.map((p, i) => (
+          <ProjectCard key={p.title} project={p} index={i} />
         ))}
       </div>
     </div>

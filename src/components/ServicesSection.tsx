@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { Palette, Search, Box, Layers } from "lucide-react";
 
 const services = [
-  { icon: Palette, title: "UI Design", desc: "Designing modern, visually appealing interfaces for web and mobile applications." },
-  { icon: Search, title: "UX Research", desc: "Understanding user behavior to create intuitive experiences." },
-  { icon: Box, title: "Product Design", desc: "End-to-end product design from idea to final interface." },
-  { icon: Layers, title: "Design Systems", desc: "Building scalable UI component systems for consistency." },
+  { icon: Palette, title: "UI Design", desc: "Designing modern, visually appealing interfaces for web and mobile applications.", span: "md:col-span-2 md:row-span-2" },
+  { icon: Search, title: "UX Research", desc: "Understanding user behavior to create intuitive experiences.", span: "" },
+  { icon: Box, title: "Product Design", desc: "End-to-end product design from idea to final interface.", span: "" },
+  { icon: Layers, title: "Design Systems", desc: "Building scalable UI component systems for consistency.", span: "md:col-span-2" },
 ];
 
 const ServicesSection = () => (
@@ -19,7 +19,7 @@ const ServicesSection = () => (
       >
         Services I Provide
       </motion.h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {services.map((s, i) => (
           <motion.div
             key={s.title}
@@ -27,13 +27,15 @@ const ServicesSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
-            className="group rounded-2xl border border-border bg-card p-8 hover:border-primary/40 hover:glow-orange transition-all"
+            className={`group rounded-2xl border border-border bg-card/80 backdrop-blur-sm p-8 hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 ${s.span}`}
           >
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+            <motion.div
+              className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110 transition-all duration-300"
+            >
               <s.icon size={24} />
-            </div>
+            </motion.div>
             <h3 className="font-display text-lg font-semibold text-foreground">{s.title}</h3>
-            <p className="mt-2 text-sm text-muted-foreground">{s.desc}</p>
+            <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
           </motion.div>
         ))}
       </div>
